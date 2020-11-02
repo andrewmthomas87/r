@@ -1,10 +1,7 @@
-import App from './App.svelte'
+import Root from './components/Root.svelte'
 
-const app = new App({
+const root = new Root({
 	target: document.body,
-	props: {
-		name: 'abc',
-	},
 })
 
-export default app
+export default root
