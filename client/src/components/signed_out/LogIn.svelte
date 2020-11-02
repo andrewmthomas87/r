@@ -2,7 +2,10 @@
 	import { auth, user } from 'stores/auth'
 	import { tick } from 'svelte'
 
-	let submitting = false
+	let isConfirmationSuccess = window.history.state?.isConfirmationSuccess
+	let isConfirmationFailure = window.history.state?.isConfirmationFailure
+
+	let isSubmitting = false
 	const values = {
 		email: '',
 		password: '',
@@ -36,7 +39,7 @@
 			return
 		}
 
-		submitting = true
+		isSubmitting = true
 		await tick()
 
 		try {
@@ -48,7 +51,7 @@
 			} else {
 				error = 'An error occurred'
 			}
-			submitting = false
+			isSubmitting = false
 		}
 	}
 </script>
@@ -66,10 +69,24 @@
 			<div class="box">
 				<h1 class="title">Log in</h1>
 				<form on:submit|preventDefault={handleSubmit}>
+					{#if isConfirmationSuccess}
+						<div class="notification is-success">
+							<button class="delete" on:click={() => (isConfirmationSuccess = false)} />
+							<strong>Success!</strong>
+							Your email has been verified and your account is ready. Log in to continue.
+						</div>
+					{/if}
+					{#if isConfirmationFailure}
+						<div class="notification is-danger">
+							<button class="delete" on:click={() => (isConfirmationFailure = false)} />
+							<strong>Email confirmation failed.</strong>
+							Something went wrong, make sure you're clicking on the right link.
+						</div>
+					{/if}
 					{#if error}
 						<div class="notification is-danger">{error}</div>
 					{/if}
-					<fieldset disabled={submitting}>
+					<fieldset disabled={isSubmitting}>
 						<div class="field">
 							<label class="label" for="email">Email</label>
 							<div class="control">
@@ -105,7 +122,7 @@
 							</div>
 						</div>
 						<div class="field">
-							<div class="control"><button class="button is-link">Submit</button></div>
+							<div class="control"><button class="button is-link" class:is-loading={isSubmitting}>Submit</button></div>
 						</div>
 					</fieldset>
 				</form>

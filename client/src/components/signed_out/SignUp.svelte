@@ -4,7 +4,7 @@
 	import { auth } from 'stores/auth'
 	import { tick } from 'svelte'
 
-	let submitting = false
+	let isSubmitting = false
 	const values = {
 		email: '',
 		password: '',
@@ -57,7 +57,7 @@
 			return
 		}
 
-		submitting = true
+		isSubmitting = true
 		await tick()
 
 		try {
@@ -68,7 +68,7 @@
 			} else {
 				error = 'An error occurred'
 			}
-			submitting = false
+			isSubmitting = false
 		}
 	}
 </script>
@@ -97,7 +97,7 @@
 					{#if error}
 						<div class="notification is-danger">{error}</div>
 					{/if}
-					<fieldset disabled={submitting}>
+					<fieldset disabled={isSubmitting}>
 						<div class="field">
 							<label class="label" for="email">Email</label>
 							<div class="control">
@@ -155,7 +155,9 @@
 							</div>
 						</div>
 						<div class="field">
-							<div class="control"><button class="button is-link">Submit</button></div>
+							<div class="control">
+								<button class="button is-link" class:is-loading={isSubmitting && !user}>Submit</button>
+							</div>
 						</div>
 					</fieldset>
 				</form>

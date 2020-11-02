@@ -7,6 +7,30 @@
 	import NotFound from './NotFound.svelte'
 	import LogIn from './LogIn.svelte'
 	import SignUp from './SignUp.svelte'
+	import { auth } from 'stores/auth'
+
+	let isConfirming = false
+	if (window.location.hash) {
+		const hash: Map<string, string> = new Map()
+		window.location.hash
+			.slice(1)
+			.split('&')
+			.forEach((s) => {
+				const [n, v] = s.split('=')
+				hash.set(n, v)
+			})
+		const confirmationToken = hash.get('confirmation_token')
+		if (confirmationToken) {
+			isConfirming = true
+			auth
+				.confirm(confirmationToken, true)
+				.then(() => window.history.replaceState({ isConfirmationSuccess: true }, '', '/log-in'))
+				.catch(() => window.history.replaceState({ isConfirmationFailure: true }, '', '/log-in'))
+				.finally(() => {
+					isConfirming = false
+				})
+		}
+	}
 
 	const router = navaid('/', () => signedOutRoute.set(null))
 
@@ -34,5 +58,9 @@
 	}
 </script>
 
-<Nav />
-<svelte:component this={page} />
+{#if isConfirming}
+	<section class="section"><progress class="progress is-primary" /></section>
+{:else}
+	<Nav />
+	<svelte:component this={page} />
+{/if}
