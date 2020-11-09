@@ -2,11 +2,15 @@
 	let isMenuOpen = false
 </script>
 
-<nav class="navbar is-spaced" role="navigation" aria-label="main navigation">
+<style>
+	#logo {
+		color: #4e2a84;
+	}
+</style>
+
+<nav class="navbar has-shadow is-spaced" role="navigation" aria-label="main navigation">
 	<div class="navbar-brand">
-		<a href="/" class="navbar-item">
-			<img src="https://bulma.io/images/bulma-logo.png" alt="logo" width="112" height="28" />
-		</a>
+		<a href="/" class="navbar-item"> <strong id="logo" class="is-size-3">EVR</strong> </a>
 		<!-- svelte-ignore a11y-missing-attribute -->
 		<a
 			role="button"

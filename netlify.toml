@@ -1,8 +1,7 @@
 [build]
-	base = "client/"
 	publish = "public/"
 	command = "npm run build"
+	functions = "functions/"
 
 [dev]
 	framework = "svelte"
-

@@ -34,6 +34,8 @@
 
 	const router = navaid('/', () => signedOutRoute.set(null))
 
+	router.on('/log-out', () => router.route('/'))
+
 	router.on('/', () => signedOutRoute.set('home'))
 	router.on('/log-in', () => signedOutRoute.set('log_in'))
 	router.on('/sign-up', () => signedOutRoute.set('sign_up'))

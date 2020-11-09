@@ -1,4 +1,4 @@
-import GoTrue from 'gotrue-js'
+import GoTrue, { User } from 'gotrue-js'
 import { writable } from 'svelte/store'
 
 const auth = new (GoTrue as any).default({

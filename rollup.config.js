@@ -31,7 +31,7 @@ function serve() {
 }
 
 export default {
-	input: 'src/main.ts',
+	input: 'client/main.ts',
 	output: {
 		sourcemap: true,
 		format: 'iife',
@@ -50,7 +50,7 @@ export default {
 			preprocess: sveltePreprocess({
 				sourceMap: !production,
 				scss: {
-					includePaths: ['node_modules', 'src'],
+					includePaths: ['node_modules', 'client'],
 					postcss: {
 						plugins: [require('autoprefixer')()],
 					},
@@ -74,7 +74,7 @@ export default {
 		}),
 
 		includePaths({
-			paths: ['src'],
+			paths: ['client'],
 		}),
 
 		// In dev mode, call `npm run start` once

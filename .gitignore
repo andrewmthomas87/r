@@ -1,7 +1,7 @@
 node_modules/
 .DS_Store
 
-client/public/build/
+public/build/
 
 
 # Local Netlify folder
