@@ -1,0 +1,24 @@
+type Restaurant {
+	name: String!
+}
+
+type Meal {
+	name: String!
+	description: String!
+	restaurant: Restaurant! @relation
+	plans: [Plan!]! @relation
+}
+
+type Plan {
+	title: String!
+	subtitle: String!
+	meals: [Meal!]! @relation
+	startDate: Date!
+}
+
+type Query {
+	findPlansByStartDate(startDate: Date!): [Plan!]!
+	allRestaurants: [Restaurant!]!
+	allMeals: [Meal!]!
+	allPlans: [Plan!]!
+}
