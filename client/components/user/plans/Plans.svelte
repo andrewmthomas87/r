@@ -1,10 +1,16 @@
 <script lang="ts">
 	import { PLANS } from 'components/data'
 	import type { Router } from 'navaid'
+	import { user } from 'stores/auth'
 	import { getContext } from 'svelte'
 	import Plan from './Plan.svelte'
 
 	const router = getContext<Router>('router')
+
+	fetch('/.netlify/functions/all-plans', {
+		method: 'GET',
+		headers: { Authorization: `Bearer ${$user.token.access_token}` },
+	})
 </script>
 
 <section class="section">

@@ -16,8 +16,15 @@ type Plan {
 	startDate: Date!
 }
 
+type PlanSelection {
+	userID: String!
+	startDate: Date!
+	plan: Plan! @relation
+}
+
 type Query {
 	findPlansByStartDate(startDate: Date!): [Plan!]!
+	findPlanSelectionByUserIDAndStartDate(userID: String!, startDate: Date!): PlanSelection
 	allRestaurants: [Restaurant!]!
 	allMeals: [Meal!]!
 	allPlans: [Plan!]!
